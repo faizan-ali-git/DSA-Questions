@@ -32,6 +32,7 @@ public class SumOfAllNumbers {
 				max(Integer::compare);
 		Optional<Integer> max4 = l.stream().
 				max(Integer::compareTo);
+		
 //		System.out.println(sum.get());
 //		System.out.println(sum2.get());
 //		System.out.println(max.get());
@@ -40,16 +41,21 @@ public class SumOfAllNumbers {
 //		System.out.println(max4.get());
 		
 		//even numbers
+		
 		List<Integer> evenNumbers = l.stream()
 							.filter( el -> el%2==0)
 								.collect(Collectors.toList());
 		//even numbers sum
+		
 		Integer evenNumbersSum = l.stream()
 				.filter( el -> el%2==0)
 				.mapToInt(Integer::intValue)
 				.sum();
+		
+		
 		//even numbers sum
-		Long evenNumbersCount = l.stream()
+		
+		long evenNumbersCount = l.stream()
 				.filter( el -> el%2==0)
 				.mapToInt(Integer::intValue)
 				.count();
@@ -61,8 +67,14 @@ public class SumOfAllNumbers {
 				min((a,b) -> a - b);
 		Optional<Integer> min2 = l.stream().
 				min(Integer::compare);
+		
 		List<String> sortedList = ls.stream().
 				sorted(String::compareTo)
+				//sorted()     "or"
+				.collect(Collectors.toList());
+		
+		List<Integer> res = l.stream()
+				.sorted(Comparator.reverseOrder())
 				.collect(Collectors.toList());
 		
 		List<String> evenToUpperString = ls.stream().
@@ -70,6 +82,7 @@ public class SumOfAllNumbers {
 											map(String::toUpperCase) 
 										.collect(Collectors.toList());  
 	//	System.out.println(evenToUpperString);
+		//evenToUpperDistinct
 		
 		List<Integer> evenToUpperDistinct = l.stream().
 													distinct()
@@ -78,7 +91,7 @@ public class SumOfAllNumbers {
 	//	System.out.println(evenToUpperDistinct);
 		
 		List<Integer> sortedNumbers = l.stream()
-                .sorted((a, b) -> b - a)
+                .sorted()
                 .collect(Collectors.toList());
 
             //    System.out.println(sortedNumbers);
@@ -92,8 +105,24 @@ public class SumOfAllNumbers {
 		String result = ls.stream()
                 .collect(Collectors.joining(", "));
 
-        System.out.println("Concatenated string: " + sortedList);
+	//***********************************************************
+		// Two unsorted lists
+        List<Integer> list1 = Arrays.asList(5, 1, 9, 3);
+        List<Integer> list2 = Arrays.asList(8, 2, 6, 4);
+
+        // Merging and sorting the lists using Stream
+        List<Integer> sortedListCon = Stream.concat(list1.stream(), list2.stream()) // Merge the lists
+                                         .sorted()                              // Sort the elements
+                                         .collect(Collectors.toList());         // Collect into a list
+
+        // Print the sorted list
+        System.out.println("Sorted Merged List: " + sortedListCon);
 		
+		
+		
+        System.out.println("Concatenated string: " + res);
+		
+        
 
 	}
 

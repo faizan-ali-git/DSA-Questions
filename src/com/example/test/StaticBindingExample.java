@@ -13,6 +13,6 @@ public class StaticBindingExample {
     public static void main(String[] args) {
         Animal animal = new Dog();
         animal.staticMethod();     // Calls Animal's static method (static binding)
-         //animal.privateMethod();  // This line would cause a compile-time error
+      //   animal.privateMethod();  // This line would cause a compile-time error
     }
 }

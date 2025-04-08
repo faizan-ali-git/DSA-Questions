@@ -1,33 +1,57 @@
 package com.example.test;
+
+import java.util.Arrays;
+
+//Java program to find the length of the longest 
+//substring without repeating characters
+
+import java.util.*;
+
 public class GfG {
-  
-    // As the input string can only have lowercase 
-    // characters, the maximum characters will be 26
-    static final int MAX_CHAR = 26;
 
-    static char nonRepeatingChar(String s) {
-  
-        // Initialize frequency array
-        int[] freq = new int[MAX_CHAR];
+	// Function to find the longest palindrome substring
+	static String longestPalSubstr(String s) {
+		int n = s.length();
+		boolean[][] dp = new boolean[n][n];
 
-        // Count the frequency of all characters
-        for (char c : s.toCharArray()) 
-            freq[c - 'a']++;
+		// All substrings of length 1 are palindromes
+		int maxLen = 1;
+		int start = 0;
 
-        // Find the first character with frequency 1
-        for (int i = 0; i < s.length(); ++i) {
-            if (freq[s.charAt(i) - 'a'] == 1)
-                return s.charAt(i);
-        }
-    
-        // If no character with a frequency of 1 is 
-        // found, then return '$'
-        return '$';
-    }
+		for (int i = 0; i < n; ++i)
+			dp[i][i] = true;
 
-    public static void main(String[] args) {
-        String s = "gezgeap";
-  
-        System.out.println(nonRepeatingChar(s));
-    }
+		// Check for sub-string of length 2
+		for (int i = 0; i < n - 1; ++i) {
+			if (s.charAt(i) == s.charAt(i + 1)) {
+				dp[i][i + 1] = true;
+				start = i;
+				maxLen = 2;
+			}
+		}
+
+		// Check for lengths greater than 2
+		for (int k = 3; k <= n; ++k) {
+			for (int i = 0; i < n - k + 1; ++i) {
+				int j = i + k - 1;
+
+				if (dp[i + 1][j - 1] && s.charAt(i) == s.charAt(j)) {
+					dp[i][j] = true;
+
+					if (k > maxLen) {
+						start = i;
+						maxLen = k;
+					}
+				}
+			}
+		}
+
+		return s.substring(start, start + maxLen);
+	}
+
+	// Driver Code
+	public static void main(String[] args) {
+		String s = "rrogee";
+		System.out.println(longestPalSubstr(s));
+	}
 }
